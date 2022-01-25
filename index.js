@@ -5,7 +5,6 @@ const ngrok = require('ngrok')
 const express = require('express')
 const request = require('superagent')
 const bodyParser = require('body-parser')
-const fs = require('fs')
 
 //Define Variables
 const app = express()
@@ -39,7 +38,6 @@ app.post('/translatevisitor', async (req, res) => {
     try {
         let driftBot = req.body.data.author.bot
         let driftAuthorType = req.body.data.author.type
-        // let driftAuthorId = req.body.data.author.id
         if (driftAuthorType === 'contact') {
             let driftMessage = req.body.data.body
             let driftConversation = req.body.data.conversationId
@@ -55,7 +53,7 @@ app.post('/translatevisitor', async (req, res) => {
                 db.push(dbEntryRaw)
                 console.log('Adding new language!')
             }
-            let translatedText = await translateTextVisitor(detectedText)
+            let translatedText = await translateText(detectedText)
             request.post(`${conversationApiBase}${driftConversation}/messages`)
                 .set('Content-type', 'application/json')
                 .set('Authorization', `Bearer ${visitorToken}`)
@@ -102,9 +100,8 @@ app.post('/translateagent', async (req, res) => {
             }
             let langCodeObject = db.find(findLang)
             let langCodeVisitor = langCodeObject.langcode
-            // console.log(langCodeVisitor)
             let detectedText = await detectLanguage(ModifiedDriftMessage)
-            let translatedText = await translateTextAgent(detectedText, langCodeVisitor)
+            let translatedText = await translateText(detectedText, langCodeVisitor)
             request.post(`${conversationApiBase}${driftConversationAgent}/messages`)
                 .set('Content-type', 'application/json')
                 .set('Authorization', `Bearer ${agentToken}`)
@@ -152,33 +149,15 @@ const detectLanguage = async (driftMessage) => {
     }
 }
 
-//Translate text from Visitor
-const translateTextVisitor = async (detectedText) => {
+//Translate text 
+const translateText = async (detectedText, langCodeVisitor) => {
     // Construct request
     const request = {
         parent: `projects/${projectId}/locations/${location}`,
         contents: detectedText,
         mimeType: 'text/plain', // mime types: text/plain, text/html
         sourceLanguageCode: detectedText[0],
-        targetLanguageCode: 'en',
-    };
-
-    // Run request
-    const [response] = await translationClient.translateText(request);
-    let transText = response.translations[2].translatedText
-    return [transText]
-
-}
-
-//Translate text from Agent
-const translateTextAgent = async (detectedText, langCodeVisitor) => {
-    // Construct request
-    const request = {
-        parent: `projects/${projectId}/locations/${location}`,
-        contents: detectedText,
-        mimeType: 'text/plain', // mime types: text/plain, text/html
-        sourceLanguageCode: 'en',
-        targetLanguageCode: langCodeVisitor
+        targetLanguageCode: langCodeVisitor || 'en'
     };
 
     // Run request
