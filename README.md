@@ -47,6 +47,7 @@ node index.js
 ![DRIFT-VIDEO-3045136-3149711-1643082412](https://user-images.githubusercontent.com/57994411/150907452-797a7a1c-af96-494c-ab3f-7843565143fa.gif)
 
 ## Demo of Chat Agent Experience (German --> English & English --> German)
-![DRIFT-VIDEO-3045144-3149719-1643082779](https://user-images.githubusercontent.com/57994411/150907900-8a127672-049f-47b8-bdce-fac5d84c3500.gif)
+
+![DRIFT-VIDEO-3047278-3151853-1643167646](https://user-images.githubusercontent.com/57994411/151099191-2b65e93a-e250-46e0-bf1a-876b76fc2dac.gif)
 
 
