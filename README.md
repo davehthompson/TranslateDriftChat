@@ -1,6 +1,6 @@
 # Drift Translator App
 
-Server side application written in Node that listens for message events and translates them in accordance to a site visitors language.
+Server side application written in Node that listens for message events and translates them in accordance to a site visitors language (SV language --> Agent Language && Agent default language --> SV language)
 
 ### Application Logic
 
@@ -43,6 +43,16 @@ Once installed navigate to the root directoy where the files resides and run the
 node index.js
 ```
 
+### Considerations
+
+#### Drift Developer Application
+
+In order for the experience to function properly you will need to set up a developer app inside of your drift account for Drift to POST relevant information to your application. Please ensure you are leveraging proper scopes/subscribing to relevant webhooks. [This guide will help get this set up for you](https://devdocs.drift.com/docs/quick-start).
+
+##### HTTP POST Requests
+This application leverages `ngrok` as it's means to listening and digesting events from Drift. It is being leveraged in a free capacity and therefore whenever the service restarts a new randomly generated URL will be exposed to recieve POST requests from Drift. This URL will need to be updated inside of the relevant Drift Dev Application in order to function properly after each restart -- as seen below: 
+
+![Capture](https://user-images.githubusercontent.com/57994411/151228007-563fafb8-e7e2-438c-98a5-81537987e4e6.JPG)
 ## Demo of Site Visitor Experience (German)
 ![DRIFT-VIDEO-3045136-3149711-1643082412](https://user-images.githubusercontent.com/57994411/150907452-797a7a1c-af96-494c-ab3f-7843565143fa.gif)
 
