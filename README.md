@@ -7,7 +7,7 @@ Server side application written in Node that listens for message events and tran
 When a site visitor engages with a bot in a specific language the application will detect the language, listen for any messages sent by the site visitor, translate them, and write an internal note inside of the conversation to the target language (English in this example). Additionally, when a chat agent writes back to the chat the application will translate the message into the visitors identified language. 
 
 ### Installation and Setup
-
+---
 There are _three_ core components of this application
 * Access to Google's Translation API
 * Two Drift Developer Applications for listening for specific message events (```new_message``` and ```new_command_message```)
@@ -44,7 +44,7 @@ node index.js
 ```
 
 ### Considerations
-
+---
 #### Drift Developer Application
 
 In order for the experience to function properly you will need to set up a developer app inside of your drift account for Drift to POST relevant information to your application. Please ensure you are leveraging proper scopes/subscribing to relevant webhooks. [This guide will help get this set up for you](https://devdocs.drift.com/docs/quick-start).
